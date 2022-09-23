@@ -1,5 +1,6 @@
 ﻿using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,50 @@ namespace DevBlog.DataAccess.Implementations
 {
     public class UserRepository : IUserRepository
     {
+        private DevBlogDbContext _dbContext;
+        public UserRepository(DevBlogDbContext devBlogDbContext)
+        {
+            _dbContext = devBlogDbContext;
+        }
+
         public void Add(User entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(User entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public List<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.ToList();
         }
 
         public User GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Users
+                .Include(x => x.Posts)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            return _dbContext.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
+        }
+
+        public User LoginUser(string username, string hashedPassword)
+        {
+            return _dbContext.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower() && x.Password == hashedPassword);
         }
 
         public void Update(User entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Users.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +11,43 @@ namespace DevBlog.DataAccess.Implementations
 {
     public class TagRepository : ITagRepository
     {
+        private DevBlogDbContext _dbContext;
+        public TagRepository(DevBlogDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public void Add(Tag entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Tags.Add(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(Tag entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Tags.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public List<Tag> GetAll()
         {
-            throw new NotImplementedException();
+            return _dbContext.Tags
+                .Include(x => x.Posts)
+                .ThenInclude(y => y.User)
+                .ToList();
         }
 
         public Tag GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Tags.Where(x => x.Id == id)
+                .Include(x => x.Posts)
+                .ThenInclude(y => y.User)
+                .FirstOrDefault();
         }
 
         public void Update(Tag entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Tags.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }
