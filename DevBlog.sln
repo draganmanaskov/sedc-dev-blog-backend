@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevBlog.DataAccess", "DataA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevBlog.Helpers", "DevBlog.Helpers\DevBlog.Helpers.csproj", "{696BF47F-11A6-4870-9B28-EC7E25502030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBlog.Services", "DevBlog.Services\DevBlog.Services.csproj", "{1DE9BA48-F722-4416-870A-FCAE92DB6683}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevBlog.Services", "DevBlog.Services\DevBlog.Services.csproj", "{1DE9BA48-F722-4416-870A-FCAE92DB6683}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBlog.Dtos", "DevBlog.Dtos\DevBlog.Dtos.csproj", "{E933EB6C-9F36-4FBB-8822-1EFB5728364F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevBlog.Dtos", "DevBlog.Dtos\DevBlog.Dtos.csproj", "{E933EB6C-9F36-4FBB-8822-1EFB5728364F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBlog.Shared", "DevBlog.Shared\DevBlog.Shared.csproj", "{80216E6C-8B3A-4CED-AB3B-454219BABCFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevBlog.Shared", "DevBlog.Shared\DevBlog.Shared.csproj", "{80216E6C-8B3A-4CED-AB3B-454219BABCFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBlog.Mappers", "DevBlog.Mappers\DevBlog.Mappers.csproj", "{82B7758D-CBAF-4BD5-9FEF-05AB6622B203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{80216E6C-8B3A-4CED-AB3B-454219BABCFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80216E6C-8B3A-4CED-AB3B-454219BABCFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80216E6C-8B3A-4CED-AB3B-454219BABCFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82B7758D-CBAF-4BD5-9FEF-05AB6622B203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82B7758D-CBAF-4BD5-9FEF-05AB6622B203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82B7758D-CBAF-4BD5-9FEF-05AB6622B203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82B7758D-CBAF-4BD5-9FEF-05AB6622B203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
 ﻿using DevBlog.Domain.Models;
-using DevBlog.Dtos;
+using DevBlog.Dtos.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +16,6 @@ namespace DevBlog.Services.Interfaces
         string GetJWT(User user);
         void ValidateUser(RegisterUserDto registerUserDto);
         string HashPassword(string password);
+        User GetUserById(int id);
     }
 }

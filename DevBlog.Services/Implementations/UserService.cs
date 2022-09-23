@@ -1,17 +1,23 @@
 ﻿using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
-using DevBlog.Dtos;
+using DevBlog.Dtos.Users;
+using DevBlog.Mappers;
+using DevBlog.Services.Interfaces;
 using DevBlog.Shared.CustomExceptions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using XSystem.Security.Cryptography;
 
 namespace DevBlog.Services.Implementations
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IUserRepository _userRepository;
         private readonly IConfiguration _config;
@@ -144,6 +150,16 @@ namespace DevBlog.Services.Implementations
         public List<User> GetAllUsers()
         {
             return _userRepository.GetAll();
+        }
+
+        public User GetUserById(int id)
+        {
+            var user = _userRepository.GetById(id);
+            if (user == null)
+            {
+                throw new UserNotFoundException($"User with id {id} does not exist!");
+            }
+            return user;
         }
     }
 }
