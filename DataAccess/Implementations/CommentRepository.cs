@@ -1,5 +1,6 @@
 ﻿using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,13 @@ namespace DevBlog.DataAccess.Implementations
         public List<Comment> GetAll()
         {
             return _dbContext.Comments.ToList();
+        }
+
+        public List<Comment> GetAllByUser(int userId)
+        {
+            return _dbContext.Comments.Where(x => x.UserId == userId)
+                .Include(x => x.Post)
+                .ToList();
         }
 
         public Comment GetById(int id)
