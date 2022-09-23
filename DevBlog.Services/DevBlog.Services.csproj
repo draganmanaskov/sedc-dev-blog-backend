@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DevBlog.DataAccess.csproj" />
+    <ProjectReference Include="..\DevBlog.Dtos\DevBlog.Dtos.csproj" />
+    <ProjectReference Include="..\DevBlog.Shared\DevBlog.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
