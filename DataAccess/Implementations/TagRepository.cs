@@ -44,6 +44,11 @@ namespace DevBlog.DataAccess.Implementations
                 .FirstOrDefault();
         }
 
+        public Tag GetTagByValue(string value)
+        {
+            return _dbContext.Tags.FirstOrDefault(x => x.Value.ToLower() == value.ToLower());
+        }
+
         public void Update(Tag entity)
         {
             _dbContext.Tags.Update(entity);

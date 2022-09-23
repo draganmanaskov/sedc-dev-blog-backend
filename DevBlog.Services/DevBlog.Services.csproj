@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataAccess\DevBlog.DataAccess.csproj" />
     <ProjectReference Include="..\DevBlog.Dtos\DevBlog.Dtos.csproj" />
+    <ProjectReference Include="..\DevBlog.Mappers\DevBlog.Mappers.csproj" />
     <ProjectReference Include="..\DevBlog.Shared\DevBlog.Shared.csproj" />
   </ItemGroup>
 

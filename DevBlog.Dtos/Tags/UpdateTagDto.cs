@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevBlog.Dtos
+namespace DevBlog.Dtos.Tags
 {
-    public class UserDto
+    public class UpdateTagDto
     {
-
+        public int Id { get; set; }
+        public string Value { get; set; }
     }
 }
