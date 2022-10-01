@@ -15,7 +15,7 @@ namespace DevBlog.Domain.Models
         public int Id { get; set; }
         public string Body { get; set; }
         // One-to-Many relation User - Comments
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public User User { get; set; }
         // One-to-Many relation Post - Comments
         public int PostId { get; set; }

@@ -10,8 +10,8 @@ namespace DevBlog.Services.Interfaces
     public interface ICommentService
     {
         public void CreateComment(CreateCommentDto createCommentDto);
-        public void UpdateComment(UpdateCommentDto updateCommentDto);
-        public void DeleteComment(int id);
+        public void UpdateComment(UpdateCommentDto updateCommentDto, int loggedInUserId);
+        public void DeleteComment(int id, int loggedInUserId);
 
     }
 }
