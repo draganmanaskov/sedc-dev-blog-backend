@@ -15,6 +15,8 @@ builder.Services.Configure<AppSettings>(appSettings);
 
 AppSettings appSettingsObject = appSettings.Get<AppSettings>();
 
+//Cors Implementation
+
 // Dependency injection
 DependencyInjectionHelper.InjectDbContext(builder.Services, appSettingsObject.ConnectionString);
 DependencyInjectionHelper.InjectRepositories(builder.Services);
