@@ -28,7 +28,7 @@ namespace DevBlog.Services.Implementations
             _config = config;
         }
 
-        public string LoginUser(LoginUserDto loginDto)
+        public LoggedUserDataDto LoginUser(LoginUserDto loginDto)
         {
             if (string.IsNullOrEmpty(loginDto.Username) && string.IsNullOrEmpty(loginDto.Password))
             {
@@ -45,7 +45,6 @@ namespace DevBlog.Services.Implementations
                 throw new UserDataException("Password is required!");
             }
 
-
             User userDb = _userRepository.LoginUser(loginDto.Username, HashPassword(loginDto.Password));
 
             if (userDb == null)
@@ -54,15 +53,17 @@ namespace DevBlog.Services.Implementations
             }
 
             //JWT 
-            return GetJWT(userDb);
-        
+            string jwt = GetJWT(userDb);
+
+            return userDb.ToLoggedUserDataDto(jwt);
+
         }
 
-        public string RegisterUser(RegisterUserDto registerUserDto)
+        public LoggedUserDataDto RegisterUser(RegisterUserDto registerUserDto)
         {
             ValidateUser(registerUserDto);
 
-            var user = UserMapper.ToUser(registerUserDto, HashPassword(registerUserDto.Password));
+            var user = registerUserDto.ToUser(HashPassword(registerUserDto.Password));
 
             _userRepository.Add(user);
 
@@ -74,7 +75,9 @@ namespace DevBlog.Services.Implementations
             }
 
             //JWT 
-            return GetJWT(userDb);
+            string jwt = GetJWT(userDb);
+
+            return userDb.ToLoggedUserDataDto(jwt);
         }
 
         public string GetJWT(User user)
@@ -91,7 +94,8 @@ namespace DevBlog.Services.Implementations
                    new[]
                    {
                        new Claim(ClaimTypes.Name, user.Username),
-                       new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                       new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                       new Claim(ClaimTypes.Role, user.Role)
                    }
                )
             };

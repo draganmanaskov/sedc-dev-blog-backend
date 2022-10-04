@@ -17,7 +17,21 @@ namespace DevBlog.Mappers
                 FirstName = registerUserDto.FirstName,
                 LastName = registerUserDto.LastName,
                 Username = registerUserDto.Username,
-                Password = hashedPassword
+                Role = "User",
+                Password = hashedPassword,
+            };
+        }
+
+        public static LoggedUserDataDto ToLoggedUserDataDto(this User user, string token)
+        {
+            return new LoggedUserDataDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username= user.Username,
+                Role = user.Role,
+                Token = token,
             };
         }
     }

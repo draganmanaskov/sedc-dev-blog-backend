@@ -11,8 +11,8 @@ namespace DevBlog.Services.Interfaces
     public interface IUserService
     {
         List<User> GetAllUsers();
-        string RegisterUser(RegisterUserDto registerUserDto);
-        string LoginUser(LoginUserDto loginDto);
+        LoggedUserDataDto RegisterUser(RegisterUserDto registerUserDto);
+        LoggedUserDataDto LoginUser(LoginUserDto loginDto);
         string GetJWT(User user);
         void ValidateUser(RegisterUserDto registerUserDto);
         string HashPassword(string password);

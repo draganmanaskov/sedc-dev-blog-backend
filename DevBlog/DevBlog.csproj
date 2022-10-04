@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DevBlog.Helpers\DevBlog.Helpers.csproj" />
+    <ProjectReference Include="..\DevBlog.Services\DevBlog.Services.csproj" />
   </ItemGroup>
 
 </Project>
