@@ -1,6 +1,8 @@
 ﻿using DevBlog.DataAccess;
 using DevBlog.DataAccess.Implementations;
 using DevBlog.DataAccess.Interfaces;
+using DevBlog.Services.Implementations;
+using DevBlog.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,8 +31,9 @@ namespace DevBlog.Helpers
 
         public static void InjectServices(IServiceCollection services)
         {
-            //services.AddTransient<INoteService, NoteService>();
-            //services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<ITagService, TagService>();
         }
     }
 }

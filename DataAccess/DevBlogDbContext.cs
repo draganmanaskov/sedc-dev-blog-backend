@@ -1,4 +1,5 @@
-﻿using DevBlog.Domain.Models;
+﻿using DevBlog.DataAccess.Configuration;
+using DevBlog.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevBlog.DataAccess
@@ -19,6 +20,8 @@ namespace DevBlog.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             modelBuilder.Entity<Post>()
              .HasOne(post => post.User)
