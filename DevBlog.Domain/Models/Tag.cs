@@ -15,6 +15,6 @@ namespace DevBlog.Domain.Models
         public int Id { get; set; }
         public string Value { get; set; }
         // Many-to-Many relation Tags - Posts
-        public virtual IList<Post> Posts { get; set; }
+        public virtual List<Post> Posts { get; set; }
     }
 }

@@ -18,10 +18,12 @@ namespace DevBlog.DataAccess.Implementations
             _dbContext = dbContext;
         }
 
-        public void Add(Comment entity)
+        public Comment Add(Comment entity)
         {
             _dbContext.Comments.Add(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
 
         public void Delete(Comment entity)
@@ -47,10 +49,12 @@ namespace DevBlog.DataAccess.Implementations
             return _dbContext.Comments.FirstOrDefault(x => x.Id == id);
         }
 
-        public void Update(Comment entity)
+        public Comment Update(Comment entity)
         {
             _dbContext.Comments.Update(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
     }
 }

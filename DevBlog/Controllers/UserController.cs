@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevBlog.Controllers
 {
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
         private IUserService _userService;
 

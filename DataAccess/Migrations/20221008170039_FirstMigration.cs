@@ -4,7 +4,7 @@
 
 namespace DevBlog.DataAccess.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,6 +138,17 @@ namespace DevBlog.DataAccess.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "Id", "Value" },
+                values: new object[,]
+                {
+                    { 1, "Architecture" },
+                    { 2, "Design" },
+                    { 3, "Tech" },
+                    { 4, "Tips & Tricks" }
                 });
 
             migrationBuilder.InsertData(

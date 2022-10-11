@@ -13,12 +13,12 @@ namespace DevBlog.Domain.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Value { get; set; }
+        public int Value { get; set; }
         // One-to-Many relation User - Stars
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         // One-to-Many relation Post - Stars
         public int PostId { get; set; }
-        public Post Post { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

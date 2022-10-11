@@ -34,6 +34,8 @@ namespace DevBlog.Helpers
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ITagService, TagService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<IStarService, StarService>();
         }
     }
 }

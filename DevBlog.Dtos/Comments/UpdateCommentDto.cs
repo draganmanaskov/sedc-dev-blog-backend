@@ -10,5 +10,6 @@ namespace DevBlog.Dtos.Comments
     {
         public int Id { get; set; }
         public string Body { get; set; }
+        public bool Anonymous { get; set; }
     }
 }

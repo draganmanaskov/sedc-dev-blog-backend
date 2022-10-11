@@ -16,10 +16,12 @@ namespace DevBlog.DataAccess.Implementations
         {
             _dbContext = dbContext;
         }
-        public void Add(Tag entity)
+        public Tag Add(Tag entity)
         {
             _dbContext.Tags.Add(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
 
         public void Delete(Tag entity)
@@ -49,10 +51,12 @@ namespace DevBlog.DataAccess.Implementations
             return _dbContext.Tags.FirstOrDefault(x => x.Value.ToLower() == value.ToLower());
         }
 
-        public void Update(Tag entity)
+        public Tag Update(Tag entity)
         {
             _dbContext.Tags.Update(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
     }
 }

@@ -19,14 +19,16 @@ namespace DevBlog.Domain.Models
         // Rating: On each star rate, calculate average in service
         public double Rating { get; set; }
         public string ImageUrl { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         // Many-to-Many relation Tags - Posts
-        public virtual IList<Tag> Tags { get; set; }
+        public virtual List<Tag> Tags { get; set; }
         // One-to-Many relation User - Posts
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         // One-to-Many relation Post - Comments
-        public virtual IList<Comment> Comments { get; set; }
+        public virtual List<Comment> Comments { get; set; }
         // One-to-Many relation Post - Stars
-        public virtual IList<Star> Stars { get; set; }
+        public virtual List<Star> Stars { get; set; }
     }
 }

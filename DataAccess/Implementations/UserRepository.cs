@@ -17,10 +17,12 @@ namespace DevBlog.DataAccess.Implementations
             _dbContext = devBlogDbContext;
         }
 
-        public void Add(User entity)
+        public User Add(User entity)
         {
             _dbContext.Users.Add(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
 
         public void Delete(User entity)
@@ -51,10 +53,12 @@ namespace DevBlog.DataAccess.Implementations
             return _dbContext.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower() && x.Password == hashedPassword);
         }
 
-        public void Update(User entity)
+        public User Update(User entity)
         {
             _dbContext.Users.Update(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
     }
 }

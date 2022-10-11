@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DevBlog.Domain\DevBlog.Domain.csproj" />
+    <ProjectReference Include="..\DevBlog.Dtos\DevBlog.Dtos.csproj" />
+    <ProjectReference Include="..\DevBlog.Mappers\DevBlog.Mappers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

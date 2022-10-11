@@ -18,11 +18,12 @@ namespace DevBlog.Domain.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
+        public DateTime CreatedAt { get; set; }
         // One-to-Many relation User - Posts
-        public virtual IList<Post> Posts { get; set; }
+        public virtual List<Post> Posts { get; set; }
         // One-to-Many relation User - Comments
-        public virtual IList<Comment> Comments { get; set; }
+        public virtual List<Comment> Comments { get; set; }
         // One-to-Many relation User - Stars
-        public virtual IList<Star> Stars { get; set; }
+        public virtual List<Star> Stars { get; set; }
     }
 }
