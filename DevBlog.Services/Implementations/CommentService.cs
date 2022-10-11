@@ -24,7 +24,7 @@ namespace DevBlog.Services.Implementations
             _userRepository = userRepository;
         }
 
-        public void CreateComment(CreateCommentDto createCommentDto)
+        public CommentDataDto CreateComment(CreateCommentDto createCommentDto)
         {
             var post = _postRepository.GetById(createCommentDto.PostId);
             if (post == null)
@@ -32,11 +32,14 @@ namespace DevBlog.Services.Implementations
                 throw new PostNotFoundException($"Post with id {createCommentDto.PostId} does not exist!");
             }
             var user = _userRepository.GetById(createCommentDto.UserId);
-            if (user == null && createCommentDto.UserId != 0)
+            if (user == null)
             {
                 throw new UserNotFoundException("User does not exist!");
             }
-            _commentRepository.Add(createCommentDto.ToComment());
+            var createdComment = _commentRepository.Add(createCommentDto.ToComment());
+
+            return createdComment.ToCommentDataDto();
+
         }
 
         public void DeleteComment(int id, int loggedInUserId)
@@ -44,28 +47,30 @@ namespace DevBlog.Services.Implementations
             var comment = _commentRepository.GetById(id);
             if (comment == null)
             {
-                throw new NotImplementedException(); // replace with CommentNotFoundException
+                throw new CommentNotFoundException($"Comment with id: {id} does not exist"); 
             }
             if (comment.UserId != loggedInUserId)
             {
-                throw new NotImplementedException(); // replace with UnauthorizedUserException
+                throw new UnauthorizedAccessException("User not authorized to make changes");
             }
             _commentRepository.Delete(comment);
         }
 
-        public void UpdateComment(UpdateCommentDto updateCommentDto, int loggedInUserId)
+        public CommentDataDto UpdateComment(UpdateCommentDto updateCommentDto, int loggedInUserId)
         {
             var comment = _commentRepository.GetById(updateCommentDto.Id);
             if (comment == null)
             {
-                throw new NotImplementedException(); // replace with CommentNotFoundException
+                throw new CommentNotFoundException($"Comment with id: {updateCommentDto.Id} does not exist");
             }
             if (comment.UserId != loggedInUserId)
             {
-                throw new NotImplementedException(); // replace with UnauthorizedUserException
+                throw new UnauthorizedAccessException("User not authorized to make changes");
             }
             comment.Body = updateCommentDto.Body;
-            _commentRepository.Update(comment);
+            var updatedComment = _commentRepository.Update(comment);
+
+            return updatedComment.ToCommentDataDto();
         }
     }
 }

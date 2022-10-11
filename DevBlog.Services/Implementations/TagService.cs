@@ -1,4 +1,5 @@
 ﻿using DevBlog.DataAccess.Interfaces;
+using DevBlog.Domain.Models;
 using DevBlog.Dtos.Tags;
 using DevBlog.Mappers;
 using DevBlog.Services.Interfaces;
@@ -37,6 +38,17 @@ namespace DevBlog.Services.Implementations
                 throw new TagNotFoundException($"Tag with id {id} does not exist!");
             }
             _tagRepository.Delete(tag);
+        }
+
+        public Tag GetTagById(int id)
+        {
+            var tag = _tagRepository.GetById(id);
+            if (tag == null)
+            {
+                throw new TagNotFoundException($"Tag with id {id} does not exist!");
+            }
+
+            return tag;
         }
 
         public void UpdateTag(UpdateTagDto updateTagDto)

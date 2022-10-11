@@ -1,5 +1,6 @@
 ﻿using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace DevBlog.DataAccess.Implementations
         {
             _dbContext = dbContext;
         }
-        public void Add(Star entity)
+        public Star Add(Star entity)
         {
             _dbContext.Stars.Update(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
 
         public void Delete(Star entity)
@@ -32,10 +35,12 @@ namespace DevBlog.DataAccess.Implementations
             return _dbContext.Stars.FirstOrDefault(x => x.PostId == postId && x.UserId == userId);
         }
 
-        public void Update(Star entity)
+        public Star Update(Star entity)
         {
             _dbContext.Stars.Update(entity);
             _dbContext.SaveChanges();
+
+            return entity;
         }
 
         // No use for now
@@ -46,7 +51,7 @@ namespace DevBlog.DataAccess.Implementations
 
         public Star GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Stars.Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevBlog.DataAccess.Migrations
 {
     [DbContext(typeof(DevBlogDbContext))]
-    [Migration("20221004173248_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20221008175908_testM")]
+    partial class testM
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,28 @@ namespace DevBlog.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Value = "Architecture"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Value = "Design"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Value = "Tech"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Value = "Tips & Tricks"
+                        });
                 });
 
             modelBuilder.Entity("DevBlog.Domain.Models.User", b =>

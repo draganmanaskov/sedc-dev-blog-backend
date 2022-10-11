@@ -34,5 +34,17 @@ namespace DevBlog.Mappers
                 Token = token,
             };
         }
+
+        public static UserInfoDto ToUserInfoDto(this User user)
+        {
+            return new UserInfoDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+            };
+        }
+        
     }
 }

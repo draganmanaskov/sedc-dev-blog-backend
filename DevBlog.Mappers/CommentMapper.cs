@@ -1,10 +1,5 @@
 ﻿using DevBlog.Domain.Models;
 using DevBlog.Dtos.Comments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevBlog.Mappers
 {
@@ -16,7 +11,21 @@ namespace DevBlog.Mappers
             {
                 Body = createCommentDto.Body,
                 PostId = createCommentDto.PostId,
-                UserId = createCommentDto.UserId == 0 ? null : createCommentDto.UserId,
+                UserId = createCommentDto.UserId,
+                Anonymous = createCommentDto.Anonymous
+            };
+        }
+
+        public static CommentDataDto ToCommentDataDto(this Comment comment)
+        {
+            return new CommentDataDto
+            {
+                Id = comment.Id,
+                Body = comment.Body,
+                CreatedAt = comment.CreatedAt,
+                UpdatedAt = comment.UpdatedAt,
+                Anonymous = comment.Anonymous,
+                UserInfo = comment.User.ToUserInfoDto(),
             };
         }
     }

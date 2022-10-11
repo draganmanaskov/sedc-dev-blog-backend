@@ -17,5 +17,14 @@ namespace DevBlog.Mappers
                 Value = createTagDto.Value
             };
         }
+
+        public static TagDataDto ToTagDataDto(this Tag tag)
+        {
+            return new TagDataDto
+            {
+                Id = tag.Id,
+                Value = tag.Value,
+            };
+        }
     }
 }

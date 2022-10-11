@@ -21,7 +21,10 @@ namespace DevBlog.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
+            //modelBuilder.Entity<Post>().Navigation(c => c.Tags).AutoInclude();
+
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new TagConfiguration());
 
             modelBuilder.Entity<Post>()
              .HasOne(post => post.User)
