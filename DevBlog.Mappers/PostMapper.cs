@@ -16,6 +16,7 @@ namespace DevBlog.Mappers
                 Description = createPostDto.Description,
                 Body = createPostDto.Body,
                 ImageUrl = createPostDto.ImageUrl,
+                CreatedAt = DateTime.Now,
                 UserId = createPostDto.UserId,
                 Tags = tags           
             };
@@ -32,7 +33,7 @@ namespace DevBlog.Mappers
 
             StarDataDto userStar = null;
 
-            if(post.Stars == null)
+            if(post.Stars == null || post.Stars.Count == 0)
             {
                 userStar = null;
             }
@@ -42,10 +43,14 @@ namespace DevBlog.Mappers
             }
 
             List<CommentDataDto> comments = new List<CommentDataDto>();
-            post.Comments.ForEach(comment =>
+            if(post.Comments != null)
             {
-                comments.Add(comment.ToCommentDataDto());
-            });
+                post.Comments.ForEach(comment =>
+                {
+                    comments.Add(comment.ToCommentDataDto());
+                });
+            }
+          
 
             return new PostDataDto
             {
@@ -58,7 +63,9 @@ namespace DevBlog.Mappers
                 Tags = tags,
                 Rating = post.Rating,
                 User = post.User.ToUserInfoDto(),   
-                UserStar = userStar
+                UserStar = userStar,
+                CreatedAt = post.CreatedAt,
+                UpdatedAt = post.UpdatedAt,
             };
         }
     }

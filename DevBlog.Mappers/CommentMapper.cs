@@ -12,7 +12,8 @@ namespace DevBlog.Mappers
                 Body = createCommentDto.Body,
                 PostId = createCommentDto.PostId,
                 UserId = createCommentDto.UserId,
-                Anonymous = createCommentDto.Anonymous
+                Anonymous = createCommentDto.Anonymous,
+                CreatedAt = DateTime.Now
             };
         }
 
@@ -25,7 +26,7 @@ namespace DevBlog.Mappers
                 CreatedAt = comment.CreatedAt,
                 UpdatedAt = comment.UpdatedAt,
                 Anonymous = comment.Anonymous,
-                UserInfo = comment.User.ToUserInfoDto(),
+                UserInfo = comment.User.ToUserInfoDto(),         
             };
         }
     }

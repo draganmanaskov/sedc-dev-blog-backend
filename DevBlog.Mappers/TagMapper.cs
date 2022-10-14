@@ -1,4 +1,5 @@
 ﻿using DevBlog.Domain.Models;
+using DevBlog.Dtos.Posts;
 using DevBlog.Dtos.Tags;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,23 @@ namespace DevBlog.Mappers
             {
                 Id = tag.Id,
                 Value = tag.Value,
+            };
+        }
+
+        public static TagSearchDto ToTagSearchDto(this Tag tag)
+        {
+            List<PostDataDto> postsList = new List<PostDataDto>();
+
+            tag.Posts.ForEach(post =>
+            {
+                postsList.Add(post.ToPostDataDto());
+            });
+
+            return new TagSearchDto
+            {
+                Id = tag.Id,
+                Value = tag.Value,
+                Posts = postsList
             };
         }
     }

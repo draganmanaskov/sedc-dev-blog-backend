@@ -1,6 +1,7 @@
 ﻿using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +33,27 @@ namespace DevBlog.DataAccess.Implementations
 
         public List<Tag> GetAll()
         {
-            return _dbContext.Tags
-                .Include(x => x.Posts)
-                .ThenInclude(y => y.User)
-                .ToList();
+            return _dbContext.Tags.ToList();
+        }
+
+        public List<Tag> GetAllTags(int index)
+        {
+            if (index == 0)
+            {
+                return _dbContext.Tags
+                 .Include(x => x.Posts)
+                 .ThenInclude(y => y.User)
+                 .ThenInclude(y => y.Comments)
+                 .ToList();
+            }
+            else
+            {
+                return _dbContext.Tags.Where(x => x.Id == index)
+                    .Include(x => x.Posts)
+                    .ThenInclude(y => y.User)
+                    .ThenInclude(y => y.Comments)
+                    .ToList();
+            }
         }
 
         public Tag GetById(int id)

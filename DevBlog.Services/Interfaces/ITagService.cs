@@ -9,5 +9,6 @@ namespace DevBlog.Services.Interfaces
         void CreateTag(CreateTagDto createTagDto);
         void UpdateTag(UpdateTagDto updateTagDto);
         void DeleteTag(int id);
+        List<TagDataDto> GetAll();
     }
 }

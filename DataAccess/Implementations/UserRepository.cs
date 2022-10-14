@@ -39,7 +39,8 @@ namespace DevBlog.DataAccess.Implementations
         public User GetById(int id)
         {
             return _dbContext.Users
-                .Include(x => x.Posts)
+                .Include(x => x.Posts).ThenInclude(y => y.Comments)
+                .Include(x => x.Posts).ThenInclude(y => y.Tags)
                 .FirstOrDefault(x => x.Id == id);
         }
 

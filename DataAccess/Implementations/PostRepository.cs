@@ -4,7 +4,7 @@ using DevBlog.Dtos.Posts;
 using DevBlog.Dtos.Tags;
 using DevBlog.Mappers;
 using Microsoft.EntityFrameworkCore;
-
+using XAct;
 
 namespace DevBlog.DataAccess.Implementations
 {
@@ -36,6 +36,54 @@ namespace DevBlog.DataAccess.Implementations
                 .Include(x => x.User)
                 .Include(x => x.Tags)
                 .Include(X => X.Comments)
+                .ToList();
+        }
+
+        public List<Post> GetAllDefault(int skip, int limit)
+        {
+            return _dbContext.Posts
+                .Skip(skip)
+                .Take(limit)
+                .Include(x => x.User)
+                .Include(x => x.Tags)
+                .Include(X => X.Comments)
+                .ToList();
+        }
+
+        public List<Post> GetAllTime(int skip, int limit, DateTime date)
+        {
+            return _dbContext.Posts
+                .Skip(skip)
+                .Take(limit)
+                .Where(x => x.CreatedAt.Month == date.Month && x.CreatedAt.Year == date.Year)
+                .Include(x => x.User)
+                .Include(x => x.Tags)
+                .Include(X => X.Comments)
+                .ToList();
+        }
+
+        public List<Post> GetAllTag(int skip, int limit, Tag tag)
+        {
+            return _dbContext.Posts
+                .Skip(skip)
+                .Take(limit)
+                .Include(x => x.User)
+                .Include(x => x.Tags)
+                .Include(X => X.Comments)
+                .Where(x => x.Tags.Contains(tag))
+                .ToList();
+        }
+
+        public List<Post> GetAllTagAndTime(int skip, int limit, Tag tag, DateTime date)
+        {
+            return _dbContext.Posts
+                .Skip(skip)
+                .Take(limit)
+                .Where(x => x.CreatedAt.Month == date.Month && x.CreatedAt.Year == date.Year)
+                .Include(x => x.User)
+                .Include(x => x.Tags)
+                .Include(X => X.Comments)
+                .Where(x => x.Tags.Contains(tag))
                 .ToList();
         }
 

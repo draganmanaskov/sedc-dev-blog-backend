@@ -1,10 +1,5 @@
 ﻿using DevBlog.Domain.Models;
 using DevBlog.Dtos.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevBlog.Mappers
 {
@@ -19,6 +14,7 @@ namespace DevBlog.Mappers
                 Username = registerUserDto.Username,
                 Role = "User",
                 Password = hashedPassword,
+                CreatedAt = DateTime.Now,
             };
         }
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevBlog.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -19,7 +20,6 @@ namespace DevBlog.Controllers
             _commentService = commentService;
         }
 
-        [AllowAnonymous]
         [HttpPost("create")]
         public ActionResult<CommentDataDto> CreateComment([FromBody] CreateCommentDto createCommentDto)
         {

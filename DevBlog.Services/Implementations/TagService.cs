@@ -40,6 +40,20 @@ namespace DevBlog.Services.Implementations
             _tagRepository.Delete(tag);
         }
 
+        public List<TagDataDto> GetAll()
+        {
+            var list = _tagRepository.GetAll();
+
+            List<TagDataDto> result = new List<TagDataDto>();
+
+            list.ForEach(tag =>
+            {
+                result.Add(tag.ToTagDataDto());
+            });
+
+            return result;
+        }
+
         public Tag GetTagById(int id)
         {
             var tag = _tagRepository.GetById(id);

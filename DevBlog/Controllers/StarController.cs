@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevBlog.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StarController : ControllerBase
@@ -20,8 +21,6 @@ namespace DevBlog.Controllers
             _starService = starService;
         }
 
-
-        [AllowAnonymous]
         [HttpPost("create")]
         public ActionResult<double> CreateStar([FromBody] CreateStarDto createStarDto)
         {
@@ -53,8 +52,6 @@ namespace DevBlog.Controllers
             }
         }
 
-
-        [AllowAnonymous]
         [HttpPost("update")]
         public ActionResult<double> UpdateStar([FromBody] UpdateStarDto updateStarDto)
         {
