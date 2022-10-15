@@ -6,5 +6,6 @@ namespace DevBlog.DataAccess.Interfaces
     {
         User LoginUser(string username, string hashedPassword);
         User GetUserByUsername(string username);
+        User GetByIdPost(int id);
     }
 }

@@ -16,6 +16,7 @@ namespace DevBlog.DataAccess
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Star> Stars { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Email> Emails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

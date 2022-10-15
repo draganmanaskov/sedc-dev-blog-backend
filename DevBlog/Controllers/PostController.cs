@@ -80,11 +80,11 @@ namespace DevBlog.Controllers
 
         [AllowAnonymous]
         [HttpGet("getAllPosts")]
-        public ActionResult<List<PostDataDto>> GetAllPosts(int page, int limit, int tagId = 0, int year = 0, int month = 0)
+        public ActionResult<List<PostDataDto>> GetAllPosts(int page, int limit, int tagId, string dateTime)
         {
             try
             {
-                var posts = _postService.GetAllPosts(page, limit, tagId, year, month);
+                var posts = _postService.GetAllPosts(page, limit, tagId, dateTime);
 
                 return StatusCode(StatusCodes.Status200OK, posts);
             }
@@ -95,6 +95,22 @@ namespace DevBlog.Controllers
             
         }
 
+        [AllowAnonymous]
+        [HttpGet("getTopRated")]
+        public ActionResult<List<PostDataDto>> GetTopRatedPosts()
+        {
+            try
+            {
+                var posts = _postService.GetTopRatedPosts();
+
+                return StatusCode(StatusCodes.Status200OK, posts);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred!");
+            }
+
+        }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
@@ -112,7 +128,7 @@ namespace DevBlog.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize, Authorize(Roles = "Admin,Creator")]
         [HttpGet("userPosts/{id}")]
         public ActionResult<PostDataDto> GetAllByUser(int id)
         {
@@ -121,6 +137,26 @@ namespace DevBlog.Controllers
                 var posts = _postService.GetAllUserPosts(id);
 
                 return StatusCode(StatusCodes.Status200OK, posts);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred!");
+            }
+        }
+
+        [Authorize, Authorize(Roles = "Admin,Creator")]
+        [HttpDelete("delete/{id}")]
+        public ActionResult<string> DeletePost(int id)
+        {
+            try
+            {
+                 _postService.DeletePost(id);
+
+                return StatusCode(StatusCodes.Status200OK, "Post Delete");
+            }
+            catch (PostNotFoundException e)
+            {
+                return BadRequest(e.Message);
             }
             catch (Exception e)
             {

@@ -48,11 +48,11 @@ namespace DevBlog.DataAccess.Implementations
             }
             else
             {
-                return _dbContext.Tags.Where(x => x.Id == index)
-                    .Include(x => x.Posts)
-                    .ThenInclude(y => y.User)
-                    .ThenInclude(y => y.Comments)
-                    .ToList();
+            return _dbContext.Tags.Where(x => x.Id == index)
+                .Include(x => x.Posts)
+                .ThenInclude(y => y.User)
+                .ThenInclude(y => y.Comments)
+                .ToList();
             }
         }
 

@@ -44,6 +44,14 @@ namespace DevBlog.DataAccess.Implementations
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public User GetByIdPost(int id)
+        {
+            return _dbContext.Users
+                .Include(x => x.Posts)
+                .Include(x => x.Posts).ThenInclude(y => y.Tags)
+                .FirstOrDefault(x => x.Id == id);
+        }
+
         public User GetUserByUsername(string username)
         {
             return _dbContext.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower());

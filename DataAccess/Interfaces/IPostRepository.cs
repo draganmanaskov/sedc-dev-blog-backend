@@ -16,5 +16,7 @@ namespace DevBlog.DataAccess.Interfaces
         List<Post> GetAllTime(int skip, int limit, DateTime date);
         List<Post> GetAllTag(int skip, int limit, Tag tag);
         List<Post> GetAllTagAndTime(int skip, int limit, Tag tag, DateTime date);
+        List<Post> GetTopFourRated();
+        Post GetByIdDelete(int id);
     }
 }

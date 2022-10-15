@@ -36,54 +36,59 @@ namespace DevBlog.DataAccess.Implementations
                 .Include(x => x.User)
                 .Include(x => x.Tags)
                 .Include(X => X.Comments)
+                .ThenInclude(y => y.User)
                 .ToList();
         }
-
         public List<Post> GetAllDefault(int skip, int limit)
         {
             return _dbContext.Posts
-                .Skip(skip)
-                .Take(limit)
                 .Include(x => x.User)
                 .Include(x => x.Tags)
-                .Include(X => X.Comments)
+                .Include(X => X.Comments) 
+                .ThenInclude(y => y.User)
+                .OrderBy(x => x.CreatedAt)
+                .Skip(skip)
+                .Take(limit)
                 .ToList();
         }
 
         public List<Post> GetAllTime(int skip, int limit, DateTime date)
         {
             return _dbContext.Posts
-                .Skip(skip)
-                .Take(limit)
                 .Where(x => x.CreatedAt.Month == date.Month && x.CreatedAt.Year == date.Year)
                 .Include(x => x.User)
                 .Include(x => x.Tags)
                 .Include(X => X.Comments)
+                .ThenInclude(y => y.User)
+                .Skip(skip)
+                .Take(limit)
                 .ToList();
         }
 
         public List<Post> GetAllTag(int skip, int limit, Tag tag)
         {
             return _dbContext.Posts
-                .Skip(skip)
-                .Take(limit)
                 .Include(x => x.User)
                 .Include(x => x.Tags)
                 .Include(X => X.Comments)
+                .ThenInclude(y => y.User)
                 .Where(x => x.Tags.Contains(tag))
+                .Skip(skip)
+                .Take(limit)
                 .ToList();
         }
 
         public List<Post> GetAllTagAndTime(int skip, int limit, Tag tag, DateTime date)
         {
             return _dbContext.Posts
-                .Skip(skip)
-                .Take(limit)
                 .Where(x => x.CreatedAt.Month == date.Month && x.CreatedAt.Year == date.Year)
                 .Include(x => x.User)
                 .Include(x => x.Tags)
                 .Include(X => X.Comments)
+                .ThenInclude(y => y.User)
                 .Where(x => x.Tags.Contains(tag))
+                .Skip(skip)
+                .Take(limit)
                 .ToList();
         }
 
@@ -100,6 +105,13 @@ namespace DevBlog.DataAccess.Implementations
                .Include(x => x.User)
                .Include(x => x.Tags)
                .Include(x => x.Comments)
+               .ThenInclude(y => y.User)
+               .FirstOrDefault();
+        }
+
+        public Post GetByIdDelete(int id)
+        {
+            return _dbContext.Posts.Where(x => x.Id == id)
                .FirstOrDefault();
         }
 
@@ -109,7 +121,8 @@ namespace DevBlog.DataAccess.Implementations
                .Include(x => x.User)
                .Include(x => x.Tags)
                .Include(x => x.Comments)
-               .Include(x => x.Stars.Where(x => x.Id == userId))
+               .ThenInclude(y => y.User)
+               .Include(x => x.Stars.Where(x => x.UserId == userId))
                .FirstOrDefault();
         }
 
@@ -126,6 +139,18 @@ namespace DevBlog.DataAccess.Implementations
             _dbContext.SaveChanges();
 
             return entity;
+        }
+
+        public List<Post> GetTopFourRated()
+        {
+            return _dbContext.Posts
+                .Include(x => x.User)
+                .Include(x => x.Tags)
+                .Include(X => X.Comments)
+                .ThenInclude(y => y.User)
+                .OrderByDescending(x => x.Rating)
+                .Take(4)
+                .ToList();
         }
     }
 }

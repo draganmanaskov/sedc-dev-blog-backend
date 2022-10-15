@@ -33,12 +33,8 @@ namespace DevBlog.Services.Implementations
             return true;
         }
 
-        public double CreateStar(CreateStarDto createStarDto, int index)
+        public double CreateStar(CreateStarDto createStarDto)
         {
-            if(createStarDto.UserId != index)
-            {
-                throw new UnauthorizedAccessException("User not authorized to make changes");
-            }
             if(createStarDto.Value < 1 || createStarDto.Value > 5)
             {
                 throw new StarDataException("Star Value must be between 1-5");
@@ -60,12 +56,8 @@ namespace DevBlog.Services.Implementations
             return _postService.UpdateRating(createStarDto.PostId);    
         }
 
-        public double UpdateStar(UpdateStarDto updateStarDto, int index)
+        public double UpdateStar(UpdateStarDto updateStarDto)
         {
-            if (updateStarDto.UserId != index)
-            {
-                throw new UnauthorizedAccessException("User not authorized to make changes");
-            }
             if (updateStarDto.Value < 1 || updateStarDto.Value > 5)
             {
                 throw new StarDataException("Star Value must be between 1-5");
