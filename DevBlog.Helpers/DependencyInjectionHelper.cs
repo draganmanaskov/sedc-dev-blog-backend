@@ -27,6 +27,7 @@ namespace DevBlog.Helpers
             services.AddTransient<IStarRepository, StarRepository>();
             services.AddTransient<ICommentRepository, CommentRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
+            services.AddTransient<IEmailRepository, EmailRepository>();
         }
 
         public static void InjectServices(IServiceCollection services)
@@ -36,6 +37,7 @@ namespace DevBlog.Helpers
             services.AddTransient<ITagService, TagService>();
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<IStarService, StarService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
     }
 }

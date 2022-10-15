@@ -13,8 +13,14 @@ namespace DevBlog.Domain.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Title { get; set; }
+        [Required]
+        [StringLength(200)]
         public string Description { get; set; }
+        [Required]
+        [StringLength(1000)]
         public string Body { get; set; }
         // Rating: On each star rate, calculate average in service
         public double Rating { get; set; }

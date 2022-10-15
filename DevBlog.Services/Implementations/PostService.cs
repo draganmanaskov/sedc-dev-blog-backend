@@ -1,12 +1,17 @@
 ﻿
+using DevBlog.DataAccess.Implementations;
 using DevBlog.DataAccess.Interfaces;
 using DevBlog.Domain.Models;
 using DevBlog.Dtos.Posts;
 using DevBlog.Mappers;
 using DevBlog.Services.Interfaces;
 using DevBlog.Shared.CustomExceptions;
+using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using XAct;
+using XAct.Categorization;
+using Tag = DevBlog.Domain.Models.Tag;
 
 namespace DevBlog.Services.Implementations
 {
@@ -15,12 +20,16 @@ namespace DevBlog.Services.Implementations
         private readonly IPostRepository _postRepository;
         private readonly ITagService _tagService;
         private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
+        private readonly ICommentRepository _commentRepository;
 
-        public PostService(IPostRepository postRepository, ITagService tagService, IUserService userService)
+        public PostService(IPostRepository postRepository, ITagService tagService, IUserService userService, IUserRepository userRepository, ICommentRepository commentRepository)
         {
             _postRepository = postRepository;
             _tagService = tagService;
             _userService = userService;
+            _userRepository = userRepository;
+            _commentRepository = commentRepository;
         }
 
         public PostDataDto CreatePost(CreatePostDto createPostDto)
@@ -43,13 +52,6 @@ namespace DevBlog.Services.Implementations
         {
             _userService.GetUserById(updatePostDto.UserId);
 
-            List<Tag> tags = new List<Tag>();
-
-            updatePostDto.TagIds.ForEach(tagId =>
-            {
-                tags.Add(_tagService.GetTagById(tagId));
-            });
-
             var post = _postRepository.GetById(updatePostDto.Id);
             if(post == null)
             {
@@ -59,16 +61,14 @@ namespace DevBlog.Services.Implementations
             post.Title = updatePostDto.Title;
             post.Description = updatePostDto.Description;
             post.Body = updatePostDto.Body;
-            post.Tags = tags;
             post.UpdatedAt = DateTime.Now;
 
             _postRepository.Update(post);
 
             return post.ToPostDataDto();
-
         }
 
-        public List<PostDataDto> GetAllPosts(int page, int limit, int tagId, int year, int month)
+        public List<PostDataDto> GetAllPosts(int page, int limit, int tagId, string dateTime)
         {
             Tag tag = null;
             if(tagId != 0)
@@ -78,7 +78,7 @@ namespace DevBlog.Services.Implementations
 
             int skip = (page - 1) * limit;
 
-            bool IsValidDate = DateTime.TryParse($"{year}/{month}/1", out DateTime date);
+            bool IsValidDate = DateTime.TryParse(dateTime, out DateTime date);
 
             List<Post> posts = null;
 
@@ -112,7 +112,8 @@ namespace DevBlog.Services.Implementations
 
         public List<PostDataDto> GetAllUserPosts(int userId)
         {
-            var user = _userService.GetUserById(userId);
+            //Using user repo for fast fix
+            User user = _userRepository.GetByIdPost(userId);
 
             var list = new List<PostDataDto>();
 
@@ -126,7 +127,7 @@ namespace DevBlog.Services.Implementations
 
         public PostDataDto GetById(int id, int userId)
         {
-            var post = _postRepository.GetByIdPost(id, 1);
+            var post = _postRepository.GetByIdPost(id, userId);
 
             return post.ToPostDataDto();
         }
@@ -136,8 +137,7 @@ namespace DevBlog.Services.Implementations
             if(_postRepository.GetById(id) == null)
             {
                 throw new PostNotFoundException($" Post with id: {id} does not exist");
-            }
-             
+            }       
         }
 
 
@@ -156,6 +156,36 @@ namespace DevBlog.Services.Implementations
             _postRepository.Update(post);
 
             return rating;
+        }
+
+        public List<PostDataDto> GetTopRatedPosts()
+        {
+            var posts = _postRepository.GetTopFourRated();
+
+            var list = new List<PostDataDto>();
+
+            posts.ForEach(post =>
+            {
+                list.Add(post.ToPostDataDto());
+            });
+
+            return list;
+        }
+
+        public void DeletePost(int id)
+        {
+            var post = _postRepository.GetById(id);
+            if(post == null)
+            {
+                throw new PostNotFoundException("Post doesnt exist");
+            }
+
+            post.Comments.ForEach(comment =>
+            {
+                _commentRepository.Delete(comment);
+            });
+
+            _postRepository.Delete(post);
         }
     }
 }

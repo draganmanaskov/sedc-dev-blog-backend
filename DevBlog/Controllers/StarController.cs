@@ -21,12 +21,13 @@ namespace DevBlog.Controllers
             _starService = starService;
         }
 
+        [AllowAnonymous]
         [HttpPost("create")]
         public ActionResult<double> CreateStar([FromBody] CreateStarDto createStarDto)
         {
             try
             {
-                double postRating = _starService.CreateStar(createStarDto, 1);
+                double postRating = _starService.CreateStar(createStarDto);
 
                 return StatusCode(StatusCodes.Status201Created, postRating);
             }
@@ -52,12 +53,12 @@ namespace DevBlog.Controllers
             }
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public ActionResult<double> UpdateStar([FromBody] UpdateStarDto updateStarDto)
         {
             try
             {
-                double postRating = _starService.UpdateStar(updateStarDto, 1);
+                double postRating = _starService.UpdateStar(updateStarDto);
 
                 return StatusCode(StatusCodes.Status201Created, postRating);
             }
